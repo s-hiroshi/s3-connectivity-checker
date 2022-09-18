@@ -1,0 +1,31 @@
+services:
+  # service
+  s3.client:
+    class: Aws\S3\S3Client
+    arguments: 
+      - { region: '%env(string:AWS_REGION)%', version: '2006-03-01' }
+  s3.getter:
+    class: HSawai\S3ConnectivityChecker\Service\GetObject
+    arguments:
+      $client: '@s3.client' 
+  s3.putter:
+    class: HSawai\S3ConnectivityChecker\Service\PutObject
+    arguments:
+      $client: '@s3.client'
+  # command
+  command.get:
+    class: HSawai\S3ConnectivityChecker\Command\GetCommand
+    arguments:
+      $getter: '@s3.getter'
+  command.put:
+    class: HSawai\S3ConnectivityChecker\Command\PutCommand
+    arguments:
+      $putter: '@s3.putter'
+  
+  # general
+  app:
+    class: Symfony\Component\Console\Application
+    calls:
+      - add: ['@command.get']
+      - add: ['@command.put']
+    public: true
