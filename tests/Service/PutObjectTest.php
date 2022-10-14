@@ -36,7 +36,7 @@ class PutObjectTest extends TestCase
         $this->mock->append(new Result(['foo' => 'bar']));
         $putObject = new PutObject($this->client);
 
-        $this->assertNull($putObject->putObject('sample-bucket', 'sample.txt'));
+        $this->assertNull($putObject->putObject('s3-connectivity-checker', 'tmp.txt'));
     }
 
     /**
@@ -51,7 +51,7 @@ class PutObjectTest extends TestCase
         });
 
         $putObject = new PutObject($this->client);
-        $putObject->putObject('sample-bucket', 'sample.txt');
-        $putObject->putObject('sample-bucket', 'sample.txt');
+        $putObject->putObject('s3-connectivity-checker', 'tmp.txt');
+        $putObject->putObject('s3-connectivity-checker', 'tmp.txt');
     }
 }
