@@ -23,7 +23,7 @@ class PutObject
     /**
      * @throws \Exception
      */
-    public function putObject(string $bucket, $filename)
+    public function putObject(string $bucket, string $filename)
     {
         try {
             $this->createLocalFile($filename);
